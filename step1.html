@@ -1,0 +1,32 @@
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:auto}
+*{box-sizing:border-box;margin:0;padding:0}
+.w{width:100%;font-family:'Open Sans',sans-serif;padding:.75rem .75rem .5rem}
+.title{font-size:18px;font-weight:600;color:#222;margin-bottom:.25rem}
+.sub{font-size:16px;color:#555;margin-bottom:1rem}
+ul{list-style:none;padding:0}
+li{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #eee;cursor:pointer;-webkit-tap-highlight-color:transparent}
+li:last-child{border-bottom:none}
+li.chk span{color:#999;text-decoration:line-through}
+.cb{width:24px;height:24px;border-radius:5px;border:2px solid #246EFF;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
+.cb.chk{background:#28A745;border-color:#28A745}
+li span{font-size:18px;color:#222}
+.btn{width:100%;margin-top:1rem;padding:13px;background:#ccc;color:#fff;border:none;border-radius:8px;font-size:18px;font-weight:600;font-family:'Open Sans',sans-serif;cursor:not-allowed;transition:background .2s}
+.btn.on{background:#246EFF;cursor:pointer}
+</style>
+<div class="w">
+  <div class="title">Step 1 of 3 - Retrieve the accessory kit</div>
+  <div class="sub">Open the flavor shelf and take out the kit.</div>
+  <ul>
+    <li onclick="tog(0)"><div class="cb" id="cb0"></div><span>Locate the flavor shelf inside the machine</span></li>
+    <li onclick="tog(1)"><div class="cb" id="cb1"></div><span>Remove the accessory kit</span></li>
+  </ul>
+  <button class="btn" id="btn" disabled onclick="scrollDown()">Got it</button>
+</div>
+<script>
+var s=[false,false];
+function chkSvg(){return '<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3.5 3.5 5.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
+function tog(i){s[i]=!s[i];var li=document.querySelectorAll('li')[i];li.classList.toggle('chk',s[i]);var cb=document.getElementById('cb'+i);cb.classList.toggle('chk',s[i]);cb.innerHTML=s[i]?chkSvg():'';var done=s.every(Boolean);var btn=document.getElementById('btn');btn.disabled=!done;btn.className='btn'+(done?' on':'');}
+function scrollDown(){window.parent.postMessage({action:'egScrollDown'},'*');}
+</script>
